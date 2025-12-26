@@ -166,3 +166,64 @@ TC_UI_3 Capture First Article Image
     ${element}=    Get WebElement    xpath:(//article//img)[1]
     Capture Element Screenshot        ${element}    first_picture.png
     Log    first_picture.png
+
+TC_UI_4 Verify Lecturer Search
+    # Navigate to Contact page
+    Navigate To About us Page
+
+    # Click Search experts
+    Wait Until Element Is Visible    xpath://a[contains(translate(.,'SEARCH EXPERTS','search experts'),'search experts')]    timeout=10s
+    Scroll Element Into View         xpath://a[contains(translate(.,'SEARCH EXPERTS','search experts'),'search experts')]
+    Click Element                    xpath://a[contains(translate(.,'SEARCH EXPERTS','search experts'),'search experts')]
+    Sleep    3s
+
+    # Scroll to search box
+    Execute JavaScript    window.scrollTo(0, 570)
+    Sleep    2s
+
+    # Fill lecturer name in search box
+    Input Text                       xpath://input[@placeholder='Write here']    ${TEACHER_NAME}
+    Sleep    5s
+
+    # Click "More information" on the first result
+    Wait Until Element Is Visible    xpath:(//a[contains(translate(.,'MORE INFORMATION','more information'),'more information')])[1]    timeout=15s
+    Scroll Element Into View         xpath:(//a[contains(translate(.,'MORE INFORMATION','more information'),'more information')])[1]
+    Click Element                    xpath:(//a[contains(translate(.,'MORE INFORMATION','more information'),'more information')])[1]
+    Sleep    5s
+
+    # Verify lecturer page contains lecturer name
+    Page Should Contain              ${TEACHER_NAME}
+
+TC_UI_5 Verify Lecturer Name In Header
+    #Navigate to Search People Page
+    Go To    https://www.hamk.fi/en/about-hamk/contact-us/people/
+    Sleep    3s
+
+    # Scroll to search box 
+    Execute JavaScript    window.scrollTo(0, 570)
+    Sleep    2s
+
+    # Fill lecturer name in search box
+    Input Text                       xpath://input[@placeholder='Write here']    ${TEACHER_NAME}
+    Sleep    5s
+
+    # Click "More information" on the first result
+    Wait Until Element Is Visible    xpath:(//a[contains(translate(.,'MORE INFORMATION','more information'),'more information')])[1]    timeout=15s
+    Scroll Element Into View         xpath:(//a[contains(translate(.,'MORE INFORMATION','more information'),'more information')])[1]
+    Click Element                    xpath:(//a[contains(translate(.,'MORE INFORMATION','more information'),'more information')])[1]
+    Sleep    5s
+
+    # people page contains lecturer name
+    Page Should Contain              ${TEACHER_NAME}
+
+    # header contains lecturer name)
+    Wait Until Page Contains    ${TEACHER_NAME}    timeout=15s
+
+    ${header_text}=    Get Text    xpath://h1
+
+    Log To Console     Header text: ${header_text}
+
+    # Verify the heading contains lecturer name
+    Should Contain     ${header_text}    ${TEACHER_NAME}
+
+
