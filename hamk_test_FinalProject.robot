@@ -124,4 +124,45 @@ TC_UI_1 Verify Latest News Articles
     Click Element                    xpath:(//a[contains(@class,'news-card__link')])[1]
     Page Should Contain              Student voice
     Sleep    3s
+
     Go Back
+
+TC_UI_2 Verify Search 
+    Go To    https://www.hamk.fi/en/
+    Sleep    3s
+    # Handle cookie banner if it appears
+    Run Keyword And Ignore Error    Wait Until Element Is Visible    ${COOKIE_BTN}    timeout=8s
+    Run Keyword And Ignore Error    Click Button    ${COOKIE_BTN}
+    Sleep    2s
+
+    # Click the Search icon
+    Wait Until Element Is Visible    xpath:(//button[contains(@class,'search-toggle')])[1]    timeout=10s
+    Scroll Element Into View         xpath:(//button[contains(@class,'search-toggle')])[1]
+    Click Element                    xpath:(//button[contains(@class,'search-toggle')])[1]
+    Sleep    5s    
+
+    # Type "services" into the input field
+    Wait Until Element Is Visible    xpath://input[contains(@class,'search-field') or @type='search']    timeout=10s
+    Input Text                       xpath://input[contains(@class,'search-field') or @type='search']    services
+    Press Keys                       xpath://input[contains(@class,'search-field') or @type='search']    ENTER
+    Sleep    5s
+
+     # Store the first search result link 
+    Wait Until Element Is Visible    xpath:(//div[contains(@class,'search-results')]//a)[1]    timeout=20s
+    ${first_result}=                 Get Text    xpath:(//div[contains(@class,'search-results')]//a)[1]
+    Log    First search result is: ${first_result}
+
+    # Click the first search result link
+    Scroll Element Into View         xpath:(//div[contains(@class,'search-results')]//a)[1]
+    Click Element                    xpath:(//div[contains(@class,'search-results')]//a)[1]
+    Sleep    5s
+
+    # Verify that the opened page contains something related to stored title
+    Page Should Contain              ${first_result}
+
+TC_UI_3 Capture First Article Image
+    Go To    https://www.hamk.fi/en/cooperation-and-services/experts-at-your-service/
+    Wait Until Element Is Visible     xpath:(//article//img)[1]    timeout=15s
+    ${element}=    Get WebElement    xpath:(//article//img)[1]
+    Capture Element Screenshot        ${element}    first_picture.png
+    Log    first_picture.png
