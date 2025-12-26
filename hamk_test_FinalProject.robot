@@ -226,4 +226,59 @@ TC_UI_5 Verify Lecturer Name In Header
     # Verify the heading contains lecturer name
     Should Contain     ${header_text}    ${TEACHER_NAME}
 
+TC_UI_6 Verify Language Switch Works
+    # Switching site language from English to Finnish.
+    Go To    ${URL}
+    Sleep    5s
+    Wait Until Element Is Visible    xpath://a[contains(@lang,'fi')]    timeout=15s
+    Click Element                    xpath://a[contains(@lang,'fi')]
+    Sleep    4s
+    # "Koulutus" = Education in Finnish for verifying page switched into Finnish
+    Page Should Contain              Koulutus
+
+TC_UI_7 Open New Student Instructions
+    #Navigating to "New Student Instructions" and clicking "Start Your Studies Here"
+    Go To    ${URL}
+    Sleep    4s
+    Wait Until Element Is Visible    xpath://a[contains(text(),'New student instructions')]    timeout=15s
+    Scroll Element Into View         xpath://a[contains(text(),'New student instructions')]
+    Click Element                    xpath://a[contains(text(),'New student instructions')]
+    Sleep    4s
+    Wait Until Page Contains         Start your studies here    timeout=15s
+    Click Element                    xpath://a[contains(text(),'Start your studies here')]
+    Sleep    5s
+    Page Should Contain              studies
+
+TC_UI_8 Explore Study Options - Computer Applications
+    #Navigation from homepage to Search Study Options then to Computer Applications and scrolls through the page
+    Go To    ${URL}
+    Sleep    5s
+
+    # Step 1: Click "Search study options"
+    Wait Until Element Is Visible    xpath://a[contains(text(),'Search study options')]    timeout=25s
+    Scroll Element Into View         xpath://a[contains(text(),'Search study options')]
+    Click Element                    xpath://a[contains(text(),'Search study options')]
+    Sleep    10s
+
+    # Step 2: Scroll down to find the programme list
+    Execute JavaScript    window.scrollBy(0, 1000)
+    Sleep    3s
+    Execute JavaScript    window.scrollBy(0, 1200)
+    Sleep    3s
+
+    # Step 3: Click "Computer Applications" directly
+    Wait Until Element Is Visible    xpath://a[contains(.,'Computer Applications')]    timeout=25s
+    Scroll Element Into View         xpath://a[contains(.,'Computer Applications')]
+    Click Element                    xpath://a[contains(.,'Computer Applications')]
+    Sleep    6s
+
+    # Step 4: scroll through programme page for finding computer applications
+    Execute JavaScript    window.scrollBy(0, 500)
+    Sleep    2s
+    Execute JavaScript    window.scrollBy(0, 800)
+    Sleep    2s
+    Execute JavaScript    window.scrollBy(0, 1200)
+    Sleep    3s
+    Page Should Contain              Computer Applications
+
 
