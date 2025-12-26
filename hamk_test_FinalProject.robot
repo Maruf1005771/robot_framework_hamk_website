@@ -282,3 +282,61 @@ TC_UI_8 Explore Study Options - Computer Applications
     Page Should Contain              Computer Applications
 
 
+TC_UI_9 Find Scholarship Finnish Skills Requirements
+
+    Go To    ${URL}
+    Sleep    3s
+    Run Keyword And Ignore Error    Click Button    ${COOKIE_BTN}
+    Sleep    2s
+
+    # Step 1: Click "Come to study" button 
+    Wait Until Element Is Visible    xpath://button[contains(translate(.,'COME TO STUDY','come to study'),'come to study')]    timeout=15s
+    Click Element                    xpath://button[contains(translate(.,'COME TO STUDY','come to study'),'come to study')]
+    Sleep    3s
+
+    # Step 2: Click "Scholarships and tuition fees" 
+    Wait Until Element Is Visible    xpath://a[contains(translate(.,'TUITION FEES AND SCHOLARSHIPS','tuition fees and scholarships'),'tuition fees and scholarships')]    timeout=15s
+    Click Element                    xpath://a[contains(translate(.,'TUITION FEES AND SCHOLARSHIPS','tuition fees and scholarships'),'tuition fees and scholarships')]
+    Sleep    3s
+
+    # Step 3: Scroll to Scholarship section 
+    Execute JavaScript    window.scrollBy(0, 2600)
+    Sleep    2s
+    Wait Until Element Is Visible    xpath://button[contains(translate(.,'SCHOLARSHIP BASED FOR THE FINNISH SKILLS: BACHELOR STUDENTS','scholarship based for the finnish skills: bachelor students'),'scholarship based for the finnish skills: bachelor students')]    timeout=20s
+    Scroll Element Into View         xpath://button[contains(translate(.,'SCHOLARSHIP BASED FOR THE FINNISH SKILLS: BACHELOR STUDENTS','scholarship based for the finnish skills: bachelor students'),'scholarship based for the finnish skills: bachelor students')]
+    Click Element                    xpath://button[contains(translate(.,'SCHOLARSHIP BASED FOR THE FINNISH SKILLS: BACHELOR STUDENTS','scholarship based for the finnish skills: bachelor students'),'scholarship based for the finnish skills: bachelor students')]
+    Sleep    4s
+
+TC_UI_10 Run a video
+    Go To    ${URL}
+    Sleep    3s
+    Run Keyword And Ignore Error    Click Button    ${COOKIE_BTN}
+    Sleep    2s
+
+    # Step 1: Click main "Research" navigation button
+    Wait Until Element Is Visible    xpath://button[contains(translate(.,'Research','research'),'research')]    timeout=10s
+    Scroll Element Into View         xpath://button[contains(translate(.,'Research','research'),'research')]
+    Click Element                    xpath://button[contains(translate(.,'Research','research'),'research')]
+    Sleep    2s
+
+    # Step 2: Click the "Research" button
+    Wait Until Element Is Visible    xpath://a[contains(translate(.,'Research','research'),'research') and contains(@href,'research')]    timeout=10s
+    Scroll Element Into View         xpath://a[contains(translate(.,'Research','research'),'research') and contains(@href,'research')]
+    Click Element                    xpath://a[contains(translate(.,'Research','research'),'research') and contains(@href,'research')]
+    Sleep    3s
+
+    # Step 3: Scroll down the Research page to find video
+    Execute JavaScript    window.scrollBy(0, 800)
+    Sleep    2s
+    Execute JavaScript    window.scrollBy(0, 400)
+    Sleep    2s
+
+    # Step 4: Try finding for first YouTube embedded video
+    Wait Until Element Is Visible    xpath://iframe[contains(@src,'youtube') or contains(@src,'youtu.be')]    timeout=15s
+    Scroll Element Into View         xpath://iframe[contains(@src,'youtube') or contains(@src,'youtu.be')]
+    Sleep    3s
+   
+    # Click on the YouTube video to play it
+    Click Element                    xpath://iframe[contains(@src,'youtube') or contains(@src,'youtu.be')]
+    Sleep    5s
+    Log    YouTube video should now be playing.
